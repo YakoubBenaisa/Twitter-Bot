@@ -44,7 +44,7 @@ class twitter_bot:
             scrape post information
         
         i_like_you()
-            NOT YOU! liking posts
+            ~__~ liking posts
 
     """
     driver = webdriver.Chrome()
@@ -69,33 +69,61 @@ class twitter_bot:
         email_button_xpath = "//*[@id=\"layers\"]/div/div/div/div/div/div/div[2]/div[2]/div/div/div[2]/div[2]/div/div/div/button[2]"
         username_button_selector = "[data-testid=\"ocfEnterTextNextButton\"]"
         password_button_selector = "[data-testid=\"LoginForm_Login_Button\"]"
+        
+        try:
+            driver.get(url)
+
+            #wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, email_input_selector)))
+            time.sleep(2)
+            email_input = driver.find_element(By.CSS_SELECTOR, email_input_selector)
+            email_input.send_keys(self.email)
+
+            email_button = wait.until(EC.presence_of_element_located((By.XPATH, email_button_xpath)))
+            email_button.click()
+
+            #wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, email_input_selector)))
+            time.sleep(2)
+
+            username_input = driver.find_element(By.CSS_SELECTOR, username_input_selector)
+            username_input.send_keys(self.username)
+
+            username_button = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, username_button_selector)))
+            username_button.click()
+
+            time.sleep(2)
+
+            password_input = driver.find_element(By.CSS_SELECTOR, password_input_selector)
+            password_input.send_keys(self.password)
+
+            password_button = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, password_button_selector)))
+            password_button.click()
+        except Exception as Error:
+            print(f"Login Failed\nError: {Error}")
+            return
+        time.sleep(2)
+        return True
+    
+    def Post(self, url):
+
+        driver = twitter_bot.driver
+        wait = twitter_bot.wait
+
+        reply_input_selector = "[data-testid=\"tweetTextarea_0\"]"
+        reply_button_selector = "[data-testid=\"reply\"]"
+        post_reply_selector = "[data-testid=\"tweetButton\"]"
 
         driver.get(url)
+        time.sleep(8)
 
-        #wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, email_input_selector)))
-        time.sleep(2)
-        email_input = driver.find_element(By.CSS_SELECTOR, email_input_selector)
-        email_input.send_keys(self.email)
-
-        email_button = wait.until(EC.presence_of_element_located((By.XPATH, email_button_xpath)))
-        email_button.click()
-
-        #wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, email_input_selector)))
-        time.sleep(2)
-
-        username_input = driver.find_element(By.CSS_SELECTOR, username_input_selector)
-        username_input.send_keys(self.username)
-
-        username_button = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, username_button_selector)))
-        username_button.click()
+        reply_button = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, reply_button_selector)))
+        reply_button.click()
 
         time.sleep(2)
 
-        password_input = driver.find_element(By.CSS_SELECTOR, password_input_selector)
-        password_input.send_keys(self.password)
+        password_input = driver.find_element(By.CSS_SELECTOR, reply_input_selector)
+        password_input.send_keys("Hi There!")
 
-        password_button = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, password_button_selector)))
-        password_button.click()
+        post_reply = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, post_reply_selector)))
+        post_reply.click()
 
-        time.sleep()
-
+        time.sleep(10)
