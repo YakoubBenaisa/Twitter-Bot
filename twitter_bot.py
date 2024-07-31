@@ -99,6 +99,3 @@ class twitter_bot:
 
         time.sleep()
 
-
-bot = twitter_bot("yakoubbenaissa7@hotmail.com", "yakoubdev", "aLnmftOM@123")
-bot.login()
