@@ -1,6 +1,6 @@
-#Twitter Bot Automation Script
+# Twitter Bot Automation Script
 
-##Overview
+## Overview
 
 This project contains a Python script to automate interactions with Twitter using Selenium WebDriver. The script allows you to log in to Twitter, search for keywords or hashtags, scrape tweet data, and interact with tweets by liking and replying.
 
